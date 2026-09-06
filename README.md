@@ -62,9 +62,9 @@ The magnitude response of low-pass, high-pass, and cascaded filters is evaluated
 
 ![Bode magnitude response](outputs/bode_magnitude_response.png)
 
-# Verification
+# Verification and Testing
 
-The numerical implementations are checked using analytical properties and established NumPy routines.
+The numerical implementations are checked using analytical properties, established NumPy routines, and automated tests.
 
 Verification includes:
 
@@ -76,7 +76,38 @@ Verification includes:
 - Beat-frequency detection verified using known frequency pairs
 - Low-pass and high-pass responses checked at their corner frequencies
 
-Tests can be run using:
+The repository uses both unit tests and JSON-driven functional tests.
+
+**Unit Tests**
+
+The `tests/` directory contains tests for individual signal-processing and frequency-analysis functions. These verify numerical accuracy, mathematical properties, input validation, and error handling.
+
+Run the unit tests using:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+**Functional Tests**
+
+The `functional_tests/` directory contains higher-level tests using inputs, expected outputs, and numerical tolerances defined externally in `test_cases.json`.
+
+The functional tests verify the complete behaviour of:
+
+- Discrete Fourier Transform
+- Inverse Discrete Fourier Transform
+- Single-sided amplitude spectrum calculation
+- Hilbert-transform envelope extraction
+- Beat-frequency detection
+- Low-pass and high-pass filter responses
+
+Run the functional tests using:
+
+```bash
+python -m unittest functional_tests.test_functional -v
+```
+
+Run all discoverable tests using:
 
 ```bash
 python -m unittest discover -v
@@ -100,6 +131,10 @@ Signal-and-Frequency-Domain-Analysis/
 ├── frequency_analysis/
 │   ├── __init__.py
 │   └── frequency_analysis.py
+├── functional_tests/
+│   ├── __init__.py
+│   ├── test_cases.json
+│   └── test_functional.py
 ├── outputs/
 │   ├── beat_frequency_hilbert.png
 │   ├── bode_magnitude_response.png
@@ -119,9 +154,32 @@ Signal-and-Frequency-Domain-Analysis/
 │   ├── test_frequency_analysis.py
 │   └── test_signal_processing.py
 ├── .gitignore
+├── main.py
 ├── README.md
 └── requirements.txt
 ```
+
+# Running the Analysis
+
+A demonstration of the main signal and frequency-domain analysis methods can be run using:
+
+```bash
+python main.py
+```
+
+Individual engineering examples can be run from the repository root using:
+
+```bash
+python -m examples.dft_reconstruction
+python -m examples.fft_conjugate_symmetry
+python -m examples.beat_frequency_hilbert
+python -m examples.vibration_spectrum
+python -m examples.frequency_domain_filtering
+python -m examples.bode_filter_response
+python -m examples.fourier_series
+```
+
+Generated figures are saved in the `outputs/` directory.
 
 # Requirements
 
@@ -135,18 +193,8 @@ Install the required packages using:
 pip install -r requirements.txt
 ```
 
-# Running the Examples
+# Purpose
 
-Examples can be run from the repository root using:
+This repository was developed to consolidate signal-processing and frequency-domain analysis techniques into a structured and reusable Python codebase.
 
-```bash
-python -m examples.dft_reconstruction
-python -m examples.fft_conjugate_symmetry
-python -m examples.beat_frequency_hilbert
-python -m examples.vibration_spectrum
-python -m examples.frequency_domain_filtering
-python -m examples.bode_filter_response
-python -m examples.fourier_series
-```
-
-Generated figures are saved in the `outputs/` directory.
+The focus is on connecting the underlying numerical methods to engineering applications while verifying their behaviour through analytical properties, reference implementations, unit tests, and JSON-driven functional tests.

@@ -1,0 +1,55 @@
+{
+  "dft": {
+    "signal": [1.0, 0.0, 0.0, 0.0],
+    "expected_real": [1.0, 1.0, 1.0, 1.0],
+    "expected_imaginary": [0.0, 0.0, 0.0, 0.0],
+    "tolerance": 1e-12
+  },
+  "inverse_dft": {
+    "transform_real": [1.0, 1.0, 1.0, 1.0],
+    "transform_imaginary": [0.0, 0.0, 0.0, 0.0],
+    "expected_real": [1.0, 0.0, 0.0, 0.0],
+    "expected_imaginary": [0.0, 0.0, 0.0, 0.0],
+    "tolerance": 1e-12
+  },
+  "amplitude_spectrum": {
+    "frequency": 5.0,
+    "amplitude": 2.0,
+    "sampling_frequency": 100.0,
+    "number_of_samples": 100,
+    "expected_frequency": 5.0,
+    "expected_amplitude": 2.0,
+    "tolerance": 1e-10
+  },
+  "hilbert_envelope": {
+    "frequency": 5.0,
+    "amplitude": 3.0,
+    "sampling_frequency": 100.0,
+    "number_of_samples": 100,
+    "expected_amplitude": 3.0,
+    "tolerance": 1e-10
+  },
+  "beat_frequency": {
+    "frequency_1": 10.0,
+    "frequency_2": 13.0,
+    "sampling_frequency": 100.0,
+    "number_of_samples": 100,
+    "expected": 3.0,
+    "tolerance": 1e-10
+  },
+  "filter_response": {
+    "frequencies": [0.0, 10.0, 100.0],
+    "corner_frequency": 10.0,
+    "expected_low_pass_magnitude": [
+      1.0,
+      0.7071067811865475,
+      0.09950371902099892
+    ],
+    "expected_high_pass_magnitude": [
+      0.0,
+      0.7071067811865475,
+      0.9950371902099892
+    ],
+    "tolerance": 1e-12
+  }
+}
