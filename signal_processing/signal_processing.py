@@ -86,3 +86,14 @@ def low_pass_filter_response(frequencies, corner_frequency):
         raise ValueError("corner_frequency must be positive.")
 
     return 1.0 / (1.0 + 1j * frequencies / corner_frequency)
+
+# Calculate the frequency response of a first-order high-pass filter
+def high_pass_filter_response(frequencies, corner_frequency):
+    frequencies = np.asarray(frequencies, dtype=float)
+
+    if corner_frequency <= 0:
+        raise ValueError("corner_frequency must be positive.")
+
+    return 1j * frequencies / (
+        corner_frequency + 1j * frequencies
+    )

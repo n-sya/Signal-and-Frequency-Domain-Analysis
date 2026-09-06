@@ -7,6 +7,8 @@ from signal_processing.signal_processing import (
     beat_frequency,
     dominant_frequencies,
     hilbert_envelope,
+    high_pass_filter_response,
+    low_pass_filter_response,
 )
 
 
@@ -87,6 +89,57 @@ class TestBeatFrequency(unittest.TestCase):
 
         self.assertAlmostEqual(result, 10.0, places=10)
 
+
+class TestLowPassFilterResponse(unittest.TestCase):
+    def test_corner_frequency_magnitude(self):
+        corner_frequency = 10.0
+
+        response = low_pass_filter_response(
+            np.array([corner_frequency]),
+            corner_frequency,
+        )
+
+        expected_magnitude = 1.0 / np.sqrt(2.0)
+
+        self.assertAlmostEqual(
+            np.abs(response[0]),
+            expected_magnitude,
+            places=10,
+        )
+
+    def test_low_frequency_passes(self):
+        response = low_pass_filter_response(
+            np.array([0.0]),
+            corner_frequency=10.0,
+        )
+
+        self.assertAlmostEqual(np.abs(response[0]), 1.0, places=10)
+
+
+class TestHighPassFilterResponse(unittest.TestCase):
+    def test_corner_frequency_magnitude(self):
+        corner_frequency = 10.0
+
+        response = high_pass_filter_response(
+            np.array([corner_frequency]),
+            corner_frequency,
+        )
+
+        expected_magnitude = 1.0 / np.sqrt(2.0)
+
+        self.assertAlmostEqual(
+            np.abs(response[0]),
+            expected_magnitude,
+            places=10,
+        )
+
+    def test_zero_frequency_is_blocked(self):
+        response = high_pass_filter_response(
+            np.array([0.0]),
+            corner_frequency=10.0,
+        )
+
+        self.assertAlmostEqual(np.abs(response[0]), 0.0, places=10)
 
 if __name__ == "__main__":
     unittest.main()
